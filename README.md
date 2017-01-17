@@ -5,8 +5,6 @@ you need first setup your server to handle 404 not found redirect from server co
 
 # How to use
 ```
-//404 redirect
-$redirect = "404_redirect_path"; 
 
 //301 redirect rule
 $rules = array(
@@ -35,5 +33,27 @@ set rule like
 ```
 $rules = array(
 "doc_" =>"newdoc/"
+);
+```
+
+- with many uri with a key word redirect to same page
+```
+http://host.com/docx_123.html => http://host.com/newdoc.html
+http://host.com/docx_234.html => http://host.com/newdoc.html
+http://host.com/docx_456.html => http://host.com/newdoc.html
+```
+set rule like
+```
+$rules = array(
+"docx_" =>"^%newdoc.html"
+);
+```
+
+- Rule is considered by its order
+```
+$rules = array(
+"doc.html" =>"newdoc.html",
+"doc_" =>"newdoc/",
+"docx_" =>"^%newdoc.html"
 );
 ```
