@@ -1,7 +1,7 @@
 <?php
 //param==================================================================
 //=======================================================================
-$404_mode = true; //set no match mode (true: 404, false: 301)
+$mode_404 = true; //set no match mode (true: 404, false: 301)
 
 //301 if keyword redirect to new path place keyword ^% in front of value
 $rules = array(
@@ -33,7 +33,7 @@ foreach ($rules as $key => $value) {
 
 // echo 404 and guide user to correct page
 if ($match === false) {
-    if ($404_mode){
+    if ($mode_404){
         header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found"); 
         header("status: 404 not found");
         include($redirect);
