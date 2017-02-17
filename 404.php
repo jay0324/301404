@@ -1,11 +1,14 @@
 <?php
 //param==================================================================
 //=======================================================================
+$404_mode = true; //set no match mode (true: 404, false: 301)
+
 //301 if keyword redirect to new path place keyword ^% in front of value
 $rules = array(
 "301_check_path_key" =>"301_replace_path_key"
 );
 
+$redirect_301 = "301.html"; //301 redirect
 //main===================================================================
 //=======================================================================
 $redirect = "404.html"; //404 view
@@ -29,11 +32,16 @@ foreach ($rules as $key => $value) {
 }
 
 // echo 404 and guide user to correct page
-// echo 404 and guide user to correct page
 if ($match === false) {
-    header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found"); 
-    header("status: 404 not found");
-    include($redirect);
-    exit();
+    if ($404_mode){
+        header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found"); 
+        header("status: 404 not found");
+        include($redirect);
+        exit();
+    }else{
+        header($_SERVER["SERVER_PROTOCOL"]." 301 Moved Permanently");
+        header("Location: ".$redirect_301);
+        exit();
+    }
 }
 ?>
