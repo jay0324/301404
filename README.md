@@ -5,6 +5,12 @@ you need first setup your server to handle 404 not found redirect from server co
 
 # How to use
 ```
+//debug message
+$mode_debug = true;
+
+//no match mode / true: 404 / false: 301
+$mode_404 = true;
+$redirect_301 = '301 no match redirect url'
 
 //301 redirect rule
 $rules = array(

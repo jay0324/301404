@@ -1,6 +1,7 @@
 <?php
 //param==================================================================
 //=======================================================================
+$mode_debug = false; //debug mode
 $mode_404 = true; //set no match mode (true: 404, false: 301)
 
 //301 if keyword redirect to new path place keyword ^% in front of value
@@ -16,8 +17,10 @@ $requestUri = urldecode(substr($_SERVER['REQUEST_URI'], 1));
 $originalPath = $_SERVER['REQUEST_URI'];
 $match = false;
 foreach ($rules as $key => $value) {
+    $newPath = '';
+
     //redirect matched url
-    if (preg_match("#" . $key . "#i", $requestUri)) {
+    if (preg_match("#" . $key . "#i", $originalPath)) {
         $match = true;
 
         //if new path start with ^% redirect to path
@@ -27,9 +30,14 @@ foreach ($rules as $key => $value) {
           $newPath = str_replace($key, $value, $originalPath);
         }
 
-        header("Location: " . $newPath, false, 301);
+        if (!$mode_debug) header("Location: " . $newPath, false, 301);
     } 
+
+    //debug msg
+    if ($mode_debug) echo '# find: ['.$key.'] in ['.$originalPath.'] result: ['.preg_match("#" . $key . "#i", $originalPath).'] redirect: ['.$newPath.']<br>';
 }
+
+if ($mode_debug) die();
 
 // echo 404 and guide user to correct page
 if ($match === false) {
