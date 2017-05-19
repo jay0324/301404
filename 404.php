@@ -14,7 +14,7 @@ $redirect_301 = "301.html"; //301 redirect
 //=======================================================================
 $redirect = "404.html"; //404 view
 $requestUri = urldecode(substr($_SERVER['REQUEST_URI'], 1));
-$originalPath = $_SERVER['REQUEST_URI'];
+$originalPath = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 $match = false;
 foreach ($rules as $key => $value) {
     $newPath = '';
