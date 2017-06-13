@@ -30,7 +30,7 @@ foreach ($rules as $key => $value) {
           $newPath = str_replace($key, $value, $originalPath);
         }
 
-        if (!$mode_debug) header("Location: " . $newPath, false, 301);
+        if (!$mode_debug) header("Location: " . $newPath, false, 301); die;
     } 
 
     //debug msg
